@@ -41,5 +41,6 @@ def delete_script(script_id: str, db: Session = Depends(get_db), _=Depends(verif
     script = db.query(models.Script).filter(models.Script.id == script_id).first()
     if not script:
         raise HTTPException(status_code=404, detail="Script not found")
+    db.query(models.Execution).filter(models.Execution.script_id == script.id).delete()
     db.delete(script)
     db.commit()

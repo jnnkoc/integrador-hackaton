@@ -76,9 +76,19 @@
         <div id="tokenForm" class="card mb-4 d-none">
             <div class="card-body">
                 <h6 class="card-title">Novo Token</h6>
-                <div class="mb-2" style="max-width:300px">
-                    <label class="form-label">Nome do cliente</label>
-                    <input type="text" id="tokenName" class="form-control" placeholder="Ex: Restaurante A">
+                <div class="row g-2 mb-2" style="max-width:600px">
+                    <div class="col-md-4">
+                        <label class="form-label">Nome do cliente</label>
+                        <input type="text" id="tokenName" class="form-control" placeholder="Ex: Restaurante A">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Usuário</label>
+                        <input type="text" id="tokenUsername" class="form-control" placeholder="Ex: restaurante_a">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Senha</label>
+                        <input type="password" id="tokenPassword" class="form-control" placeholder="Senha de acesso">
+                    </div>
                 </div>
                 <button class="btn btn-success btn-sm" onclick="createToken()">Criar</button>
                 <button class="btn btn-secondary btn-sm ms-2" onclick="hideTokenForm()">Cancelar</button>

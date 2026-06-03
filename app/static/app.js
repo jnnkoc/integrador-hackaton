@@ -131,16 +131,18 @@ async function loadTokens() {
 }
 
 function showTokenForm() {
-    document.getElementById('tokenName').value = '';
+    ['tokenName', 'tokenUsername', 'tokenPassword'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('tokenForm').classList.remove('d-none');
 }
 function hideTokenForm() { document.getElementById('tokenForm').classList.add('d-none'); }
 
 async function createToken() {
     const name = document.getElementById('tokenName').value.trim();
-    if (!name) { alert('Informe o nome do cliente'); return; }
+    const username = document.getElementById('tokenUsername').value.trim();
+    const password = document.getElementById('tokenPassword').value.trim();
+    if (!name || !username || !password) { alert('Preencha todos os campos'); return; }
     try {
-        const token = await api('POST', '/api/v1/admin/tokens', { name });
+        const token = await api('POST', '/api/v1/admin/tokens', { name, username, password });
         hideTokenForm();
         loadTokens();
         alert(`Token criado com sucesso!\n\nCliente: ${token.name}\nToken: ${token.token}\n\nGuarde o token em local seguro — ele não será exibido novamente.`);
