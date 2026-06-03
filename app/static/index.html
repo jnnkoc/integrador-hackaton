@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsyShell Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container-fluid px-4">
+        <span class="navbar-brand">IsyShell <span class="badge bg-secondary fs-6">Admin</span></span>
+        <div class="d-flex align-items-center gap-2">
+            <input type="password" id="adminToken" class="form-control form-control-sm"
+                   placeholder="X-Isy-Admin-Token" style="width:220px">
+            <button class="btn btn-sm btn-outline-light" onclick="saveToken()">Conectar</button>
+            <span id="tokenStatus" class="text-success small"></span>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid px-4">
+    <ul class="nav nav-tabs mb-4" id="mainTabs">
+        <li class="nav-item"><a class="nav-link active" href="#" onclick="showTab('scripts',event)">Scripts</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showTab('tokens',event)">Tokens</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" onclick="showTab('logs',event)">Logs</a></li>
+    </ul>
+
+    <!-- Scripts Tab -->
+    <div id="tab-scripts">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Scripts cadastrados</h5>
+            <button class="btn btn-primary btn-sm" onclick="showScriptForm()">+ Novo Script</button>
+        </div>
+        <div id="scriptForm" class="card mb-4 d-none">
+            <div class="card-body">
+                <h6 class="card-title" id="scriptFormTitle">Novo Script</h6>
+                <input type="hidden" id="scriptId">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4">
+                        <label class="form-label">Nome <span class="text-danger">*</span></label>
+                        <input type="text" id="scriptName" class="form-control">
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label">Descrição</label>
+                        <input type="text" id="scriptDescription" class="form-control">
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Parâmetros <span class="text-muted small">(nomes separados por vírgula, ex: host, porta)</span></label>
+                    <input type="text" id="scriptParams" class="form-control" placeholder="param1, param2">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Conteúdo Bash <span class="text-danger">*</span></label>
+                    <textarea id="scriptContent" class="form-control font-monospace" rows="8"
+                              placeholder="#!/bin/bash&#10;echo &quot;Hello $1&quot;"></textarea>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" id="scriptActive" class="form-check-input" checked>
+                    <label class="form-check-label" for="scriptActive">Ativo</label>
+                </div>
+                <button class="btn btn-success btn-sm" onclick="saveScript()">Salvar</button>
+                <button class="btn btn-secondary btn-sm ms-2" onclick="hideScriptForm()">Cancelar</button>
+            </div>
+        </div>
+        <div id="scriptsList"></div>
+    </div>
+
+    <!-- Tokens Tab -->
+    <div id="tab-tokens" class="d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Tokens de clientes</h5>
+            <button class="btn btn-primary btn-sm" onclick="showTokenForm()">+ Novo Token</button>
+        </div>
+        <div id="tokenForm" class="card mb-4 d-none">
+            <div class="card-body">
+                <h6 class="card-title">Novo Token</h6>
+                <div class="mb-2" style="max-width:300px">
+                    <label class="form-label">Nome do cliente</label>
+                    <input type="text" id="tokenName" class="form-control" placeholder="Ex: Restaurante A">
+                </div>
+                <button class="btn btn-success btn-sm" onclick="createToken()">Criar</button>
+                <button class="btn btn-secondary btn-sm ms-2" onclick="hideTokenForm()">Cancelar</button>
+            </div>
+        </div>
+        <div id="tokensList"></div>
+    </div>
+
+    <!-- Logs Tab -->
+    <div id="tab-logs" class="d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Execuções</h5>
+            <button class="btn btn-outline-secondary btn-sm" onclick="loadLogs()">Atualizar</button>
+        </div>
+        <div id="logsList"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
